@@ -26,6 +26,7 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/coupons', require('./routes/couponRoutes'));
 app.use('/api/payment', require('./routes/paymentRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
+app.use('/api/homepage', require('./routes/homepageContentRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Smartphone E-commerce API' });

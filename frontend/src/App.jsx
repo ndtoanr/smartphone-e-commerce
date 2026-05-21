@@ -24,6 +24,7 @@ import AdminOrders from './pages/admin/OrderManagementPage';
 import AdminUsers from './pages/admin/UserManagementPage';
 import AdminChatPage from './pages/admin/AdminChatPage';
 import AdminCoupons from './pages/admin/CouponManagementPage';
+import AdminHomepageContent from './pages/admin/HomepageContentPage';
 
 // Guards
 import ProtectedRoute from './components/ProtectedRoute';
@@ -48,6 +49,8 @@ function App() {
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/chat" element={<AdminChatPage />} />
             <Route path="/admin/coupons" element={<AdminCoupons />} />
+            <Route path="/admin/banners" element={<AdminHomepageContent defaultTab="banners" />} />
+            <Route path="/admin/advices" element={<AdminHomepageContent defaultTab="advices" />} />
           </Route>
         </Route>
 

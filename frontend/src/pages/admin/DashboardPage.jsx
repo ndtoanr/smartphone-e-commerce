@@ -112,7 +112,7 @@ const DashboardPage = () => {
   const getChartData = () => {
     if (period === 'day') {
       return (stats.dailyRevenue || []).map(d => ({
-        label: `${d._id.day}/${d._id.month}`,
+        label: `${d._id.day}/${d._id.month}/${d._id.year}`,
         revenue: d.revenue,
         count: d.count,
         _raw: d._id, // Keep raw date parts for click handler
@@ -211,67 +211,72 @@ const DashboardPage = () => {
             Chưa có dữ liệu trong khoảng thời gian này
           </div>
         ) : (
-          <ResponsiveContainer width="100%" height={280}>
-            <ComposedChart
-              data={chartData}
-              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
-            >
-              <defs>
-                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 12, fill: '#6B7280' }}
-                onClick={period === 'day' ? (data) => {
-                  const item = chartData.find(d => d.label === data.value);
-                  if (item) handleBarClick({ payload: item });
-                } : undefined}
-                style={period === 'day' ? { cursor: 'pointer' } : {}}
-              />
-              <YAxis
-                yAxisId="revenue"
-                orientation="left"
-                tickFormatter={formatVND}
-                tick={{ fontSize: 12, fill: '#6B7280' }}
-              />
-              <YAxis
-                yAxisId="count"
-                orientation="right"
-                tick={{ fontSize: 12, fill: '#6B7280' }}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Area
-                yAxisId="revenue"
-                type="monotone"
-                dataKey="revenue"
-                name="Doanh thu"
-                stroke="#3B82F6"
-                strokeWidth={2}
-                fill="url(#colorRevenue)"
-                dot={{ r: 4 }}
-                activeDot={period === 'day' ? {
-                  r: 6,
-                  cursor: 'pointer',
-                  onClick: (e, payload) => handleBarClick(payload),
-                } : { r: 4 }}
-              />
-              <Bar
-                yAxisId="count"
-                dataKey="count"
-                name="Đơn hàng"
-                fill="#A78BFA"
-                radius={[4, 4, 0, 0]}
-                opacity={0.7}
-                cursor={period === 'day' ? 'pointer' : 'default'}
-                onClick={period === 'day' ? (data) => handleBarClick(data) : undefined}
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
+          <div className="overflow-x-auto" style={{ width: '100%' }}>
+            <div style={{ minWidth: Math.max(chartData.length * 60, 500), height: 280 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart
+                  data={chartData}
+                  margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
+                >
+                  <defs>
+                    <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
+                  <XAxis
+                    dataKey="label"
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                    onClick={period === 'day' ? (data) => {
+                      const item = chartData.find(d => d.label === data.value);
+                      if (item) handleBarClick({ payload: item });
+                    } : undefined}
+                    style={period === 'day' ? { cursor: 'pointer' } : {}}
+                  />
+                  <YAxis
+                    yAxisId="revenue"
+                    orientation="left"
+                    tickFormatter={formatVND}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
+                  <YAxis
+                    yAxisId="count"
+                    orientation="right"
+                    allowDecimals={false}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                  <Area
+                    yAxisId="revenue"
+                    type="monotone"
+                    dataKey="revenue"
+                    name="Doanh thu"
+                    stroke="#3B82F6"
+                    strokeWidth={2}
+                    fill="url(#colorRevenue)"
+                    dot={{ r: 4 }}
+                    activeDot={period === 'day' ? {
+                      r: 6,
+                      cursor: 'pointer',
+                      onClick: (e, payload) => handleBarClick(payload),
+                    } : { r: 4 }}
+                  />
+                  <Bar
+                    yAxisId="count"
+                    dataKey="count"
+                    name="Đơn hàng"
+                    fill="#A78BFA"
+                    radius={[4, 4, 0, 0]}
+                    opacity={0.7}
+                    cursor={period === 'day' ? 'pointer' : 'default'}
+                    onClick={period === 'day' ? (data) => handleBarClick(data) : undefined}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         )}
       </div>
 

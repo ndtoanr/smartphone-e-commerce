@@ -47,12 +47,9 @@ router.get('/dashboard', protect, admin, async (req, res) => {
       { $sort: { '_id.year': 1, '_id.month': 1 } }
     ]);
 
-    // Daily revenue (last 30 days)
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
+    // Daily revenue (tất cả các ngày)
     const dailyRevenue = await Order.aggregate([
-      { $match: { createdAt: { $gte: thirtyDaysAgo } } },
+      { $match: {} },
       {
         $group: {
           _id: {
