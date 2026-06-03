@@ -153,7 +153,7 @@ const HomepageContentPage = ({ defaultTab = 'banners' }) => {
               <tbody>
                 {banners.map(b => (
                   <tr key={b._id} className="border-t hover:bg-gray-50">
-                    <td className="p-3"><img src={b.bgImage || b.productImg} alt="" className="w-20 h-12 object-cover rounded" onError={e => e.target.style.display='none'} /></td>
+                    <td className="p-3"><img src={b.bgImage || b.productImg} alt="" className="w-20 h-12 object-cover rounded" onError={e => e.target.style.display = 'none'} /></td>
                     <td className="p-3"><span className={`px-2 py-1 rounded text-xs font-bold ${b.type === 'slide' ? 'bg-blue-100 text-blue-700' : b.type === 'side' ? 'bg-purple-100 text-purple-700' : 'bg-orange-100 text-orange-700'}`}>{BANNER_TYPES.find(t => t.value === b.type)?.label}</span></td>
                     <td className="p-3 font-medium max-w-[200px] truncate">{b.title}</td>
                     <td className="p-3">{b.label || '-'}</td>
