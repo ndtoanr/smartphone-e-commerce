@@ -6,7 +6,7 @@
     },
     {
       "source": "/uploads/:path*",
-      "destination": "https://smartphone-e-commerce.onrender.com/:path*"
+      "destination": "https://smartphone-e-commerce.onrender.com/uploads/:path*"
     }
   ]
 }
